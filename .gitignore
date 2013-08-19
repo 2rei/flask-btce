@@ -1,6 +1,6 @@
 *.sublime*
 /configs/general.py
-/api/configs/term.py
+/console/configs/btce.py
 *.pyc
 gunicorn.conf.py
 /venv/

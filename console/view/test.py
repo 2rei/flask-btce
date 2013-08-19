@@ -5,20 +5,15 @@
     :copyright: (c) 2013 by Pavel Lyashkov.
     :license: BSD, see LICENSE for more details.
 """
-import random
+
+from libs.btce_api import BtceApi
 from flask.ext.script import Command
+
+from console.configs.btce import BtceConfig
 
 
 class TestCommand(Command):
 
-    def rate(self, count, all):
-        data = range(1, all + 1)
-        random.shuffle(data)
-        rate = sorted(random.sample(data, count))
-
-        return rate
-
     def run(self):
-        print self.rate(5, 36)
-        print self.rate(6, 45)
-        print self.rate(7, 49)
+        btce = BtceApi(BtceConfig)
+        print btce.get_ticker()

@@ -20,28 +20,12 @@ class Config(object):
 
     TZ = 'Europe/Moscow'
 
-    UPLOAD_FOLDER = './archiv'
-    UPLOAD_TMP = './tmp'
-    ALLOWED_EXTENSIONS = set(['xml'])
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
-
     LOG_FOLDER = './logs'
-
-    MAIL_SERVER = '127.0.0.1'
-    MAIL_PORT = 25
-    MAIL_USE_TLS = False
-    MAIL_USE_SSL = False
-    MAIL_USERNAME = None
-    MAIL_PASSWORD = None
-    DEFAULT_MAIL_SENDER = None
 
 
 class ProductionConfig(Config):
     SQLALCHEMY_BINDS = {
-        'term': 'mysql://user:pass@localhost/term?charset=utf8',
-        'stack': 'mysql://user:pass@localhost/stack?charset=utf8',
-        'payment': 'mysql://user:pass@localhost/payment?charset=utf8',
-        'mobispot': 'mysql://user:pass@localhost/mobispot?charset=utf8'
+        'btce': 'mysql://user:pass@localhost/btce?charset=utf8',
     }
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_RECORD_QUERIES = True
@@ -50,10 +34,7 @@ class ProductionConfig(Config):
 class DevelopmentConfig(Config):
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_BINDS = {
-        'term': 'mysql://user:pass@localhost/term?charset=utf8',
-        'stack': 'mysql://user:pass@localhost/stack?charset=utf8',
-        'payment': 'mysql://user:pass@localhost/payment?charset=utf8',
-        'mobispot': 'mysql://user:pass@localhost/mobispot?charset=utf8'
+        'btce': 'mysql://user:pass@localhost/btce?charset=utf8',
     }
     DEBUG = True
     SQLALCHEMY_RECORD_QUERIES = True
