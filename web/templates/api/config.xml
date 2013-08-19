@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<config mode="{{ term.type }}" blacklist="{{ term.blacklist }}">
+    <ntp>
+        <server>{{ config.NTP_SERVER }}</server>
+        <timezone>{{ term.tz }}</timezone>
+    </ntp>
+    {% if config.DOWNLOAD %}
+    <download force_on_restart="1">
+        <period>{{ term.download_period }}</period>
+        <start time="{{ term.download['start'] }}"/>
+        <stop time="{{ term.download['stop'] }}"/>
+    </download>
+    {% endif %}
+    {% if config.UPLOAD %}
+    <upload force_on_restart="1">
+        <period>{{ term.upload_period }}</period>
+        <start time="{{ term.upload['start'] }}"/>
+        <stop time="{{ term.upload['stop'] }}"/>
+    </upload>
+    {% endif %}
+    {% if config.UPDATE %}
+    {% if term.version %}
+    <update force_on_restart="1">
+        <period>{{ config.UPDATE_PERIOD }}</period>
+        <qid>{{term.version}}</qid>
+    </update>
+    {% endif %}
+    {% endif %}
+    {% if config.DOWNLOAD %}
+    <server goal="download">
+        <ip>{{ config.DOWNLOAD_IP }}</ip>
+        <port>{{ config.DOWNLOAD_PORT }}</port>
+        <proto upload_method="PUT">{{ config.DOWNLOAD_PROTO }}</proto>
+        <link>{{ config.DOWNLOAD_LINK_TYPE }}</link>
+    </server>
+    {% endif %}
+    {% if config.UPLOAD %}
+    <server goal="upload">
+        <ip>{{ config.UPLOAD_IP }}</ip>
+        <port>{{ config.UPLOAD_PORT }}</port>
+        <proto upload_method="PUT">{{ config.UPLOAD_PROTO }}</proto>
+        <link>{{ config.UPLOAD_LINK_TYPE }}</link>
+    </server>
+    {% endif %}
+    {% if config.LOGGER %}
+    <server goal="logger">
+        <ip>{{ config.LOGGER_IP }}</ip>
+        <port>{{ config.LOGGER_PORT }}</port>
+        <proto upload_method="PUT">{{ config.LOGGER_PROTO }}</proto>
+        <link>{{ config.LOGGER_LINK_TYPE }}</link>
+    </server>
+    {% endif %}
+    {% if config.UPDATE %}
+    <server goal="update">
+        <ip>{{ config.UPDATE_IP }}</ip>
+        <port>{{ config.UPDATE_PORT }}</port>
+        <proto upload_method="PUT">{{ config.UPDATE_PROTO }}</proto>
+        <link>{{ config.UPDATE_LINK_TYPE }}</link>
+    </server>
+    {% endif %}
+    {% for term_event in term_events %}
+    <event type="{{term_event.event.key}}" translation="{{term_event.event.name}}" min_time="{{term_event.start}}" max_time="{{term_event.stop}}">
+        {% for person_event in person_events %}
+            {% if person_event.event_id == term_event.event_id %}
+            {% set payment_id = person_event.person.payment_id %}
+                {% if payment_id %}
+                <card timeout="{{person_event.timeout}}" price="{{term_event.cost}}">
+                {{ payment_id }}</card>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </event>
+    {% endfor %}
+</config>

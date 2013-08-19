@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<blacklist>
+    {% for wallet in wallets %}
+    <card>{{wallet.payment_id}}</card>
+    {% endfor %}
+    {% for lost_card in lost_cards %}
+    <card>{{lost_card.payment_id}}</card>
+    {% endfor %}
+</blacklist>

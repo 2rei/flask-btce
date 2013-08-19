@@ -1,0 +1,11 @@
+bind = "127.0.0.1:8888"
+# или через сокет
+# bind = "unix:/home/proft/projects/blog/run/blog.socket"
+workers = 5
+# Число worker'ов расчитываеться по такой формуле 2xCPUs + 1
+user = "www"
+group = "www"
+logfile = "/home/proft/projects/blog/log/gunicorn.log"
+loglevel = "info"
+proc_name = "blog"
+#pidfile = "/home/proft/projects/blog/gunicorn.pid"
