@@ -15,5 +15,14 @@ from console.configs.btce import BtceConfig
 class TestCommand(Command):
 
     def run(self):
-        btce = BtceApi(BtceConfig)
-        print btce.get_ticker()
+        config = BtceConfig
+        btce = BtceApi(config)
+
+        btce.active = 1
+
+        print btce.get_depth()
+
+        # trades = btce.get_trades()
+        # for pair in config.PAIR:
+        #     for row in trades[pair]:
+        #         print row['price_currency']

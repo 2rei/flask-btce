@@ -7,6 +7,31 @@
 """
 
 
-class Btce(object):
+class BtceConfig(object):
     KEY = ''
     SECRET = ''
+
+    PUBLIC_URL = 'https://btc-e.com/api/2'
+    PRIVATE_URL = 'https://btc-e.com/tapi'
+
+    PUBLIC_METHOD = (
+        'fee',
+        'ticker',
+        'trades',
+        'depth'
+    )
+
+    PRIVATE_METHOD = (
+        'getInfo',
+        'TransHistory',
+        'TradeHistory',
+        'OrderList',
+        'Trade',
+        'CancelOrder'
+    )
+
+    PAIR = (
+        'btc_usd',
+        'ltc_btc',
+        'ltc_usd',
+    )
