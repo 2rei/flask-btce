@@ -6,6 +6,7 @@
     :license: BSD, see LICENSE for more details.
 """
 
+import time
 from libs.btce_api import BtceApi
 from flask.ext.script import Command
 
@@ -20,7 +21,9 @@ class TestCommand(Command):
 
         btce.active = 1
 
-        print btce.get_depth()
+        for i in xrange(10):
+            btce.nonce = btce.nonce + 1
+            print btce.get_user_info()
 
         # trades = btce.get_trades()
         # for pair in config.PAIR:

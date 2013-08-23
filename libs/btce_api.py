@@ -12,9 +12,10 @@ import json
 import time
 import urllib
 
-from console import app
 from grab import Grab
-from lxml import etree
+
+from console import app
+from helpers.format_helper import *
 
 
 class BtceApi(object):
@@ -143,5 +144,24 @@ class BtceApi(object):
         }
         if pair:
             params['pair'] = pair
+
+        return self._private_info(params)
+
+    def cancel_order(self, order_id):
+        params = {
+            'method': self.private_method['cancel_order'],
+            'order_id': order_id,
+        }
+
+        return self._private_info(params)
+
+    def trade(self, pair, trade_type, rate, amount):
+        params = {
+            'method': self.private_method['trade'],
+            'pair': pair,
+            'type': trade_type,
+            'rate': rate,
+            'amount': amount,
+        }
 
         return self._private_info(params)

@@ -13,19 +13,19 @@ from flask import Flask, Blueprint, abort, request, make_response, url_for, rend
 from web import app
 from web import cache
 
-from web.decorators.header import *
-from web.helpers.date_helper import *
-from web.helpers.hash_helper import *
-from web.helpers.error_xml_helper import *
+from decorators.header import *
+from helpers.date_helper import *
+from helpers.hash_helper import *
+from helpers.error_xml_helper import *
 
-from web.models.term import Term
-from web.models.term_event import TermEvent
-from web.models.event import Event
-from web.models.person_event import PersonEvent
-from web.models.card_stack import CardStack
-from web.models.payment_wallet import PaymentWallet
-from web.models.payment_reccurent import PaymentReccurent
-from web.models.payment_lost import PaymentLost
+from models.term import Term
+from models.term_event import TermEvent
+from models.event import Event
+from models.person_event import PersonEvent
+from models.card_stack import CardStack
+from models.payment_wallet import PaymentWallet
+from models.payment_reccurent import PaymentReccurent
+from models.payment_lost import PaymentLost
 from web.configs.term import TermConfig
 
 
