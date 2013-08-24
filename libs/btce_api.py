@@ -31,9 +31,6 @@ class BtceApi(object):
         self.public_method = self.const.PUBLIC_METHOD
         self.private_method = self.const.PRIVATE_METHOD
 
-    def get_public_url(self, pair, method):
-        return "%s/%s/%s" % (self.const.PUBLIC_URL, pair, method)
-
     def set_request(self, url, post=None, headers=None):
         return_data = False
 
@@ -63,7 +60,7 @@ class BtceApi(object):
 
         return H.hexdigest()
 
-    def _post(self, params):
+    def _private_post(self, params):
         params['nonce'] = self.nonce
 
         headers = {
@@ -75,7 +72,7 @@ class BtceApi(object):
 
     def _private_info(self, params):
         return_data = False
-        result = self._post(params)
+        result = self._private_post(params)
 
         if result:
             data = json.loads(result.response.body)
@@ -84,22 +81,24 @@ class BtceApi(object):
 
         return return_data
 
+    def get_public_url(self, method):
+        pair = '-'.join(self.pair)
+        return "%s/%s/%s" % (self.const.PUBLIC_URL, method, pair)
+
     def _public_info(self, method):
         data = {}
 
-        for pair in self.pair:
-            result = self.set_request(self.get_public_url(pair, method))
-
-            if result:
-                data[pair] = json.loads(result.response.body)
+        result = self.set_request(self.get_public_url(method))
+        if result:
+            data = json.loads(result.response.body)
 
         if len(data) == 0:
             data = False
 
         return data
 
-    def get_fee(self):
-        return self._public_info(self.public_method['fee'])
+    def get_info(self):
+        return self._public_info(self.public_method['info'])
 
     def get_ticker(self):
         return self._public_info(self.public_method['ticker'])
