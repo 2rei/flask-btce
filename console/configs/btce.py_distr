@@ -14,20 +14,20 @@ class BtceConfig(object):
     PUBLIC_URL = 'https://btc-e.com/api/2'
     PRIVATE_URL = 'https://btc-e.com/tapi'
 
-    PUBLIC_METHOD = (
-        'fee',
-        'ticker',
-        'trades',
-        'depth'
+     PUBLIC_METHOD = dict(
+        info='fee',
+        ticker='ticker',
+        trades='trades',
+        depth='depth'
     )
 
-    PRIVATE_METHOD = (
-        'getInfo',
-        'TransHistory',
-        'TradeHistory',
-        'OrderList',
-        'Trade',
-        'CancelOrder'
+    PRIVATE_METHOD = dict(
+        user_info='getInfo',
+        trans_history='TransHistory',
+        trade_history='TradeHistory',
+        order_list='ActiveOrders',
+        trade='Trade',
+        cancel_order='CancelOrder'
     )
 
     PAIR = (

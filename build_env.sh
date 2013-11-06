@@ -1,6 +1,6 @@
 #!/bin/bash
 echo $0: Creating virtual environment
-virtualenv --prompt="<myenv>" ./env
+virtualenv --prompt="<myenv>" ./venv
 
 mkdir ./logs
 mkdir ./archiv

@@ -24,8 +24,12 @@ class TestCommand(Command):
         for i in xrange(10):
             t1 = time.time()
             btce.nonce = btce.nonce + 1
-            if btce.get_depth():
-                print time.time() - t1
+            print btce.get_active_order()
+            # if btce.get_order_list():
+            #     print time.time() - t1
+
+
+
 
         # trades = btce.get_trades()
         # for pair in config.PAIR:

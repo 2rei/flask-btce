@@ -134,12 +134,9 @@ class BtceApi(object):
 
         return self._private_info(params)
 
-    def get_order_list(self, pair=None):
+    def get_active_order(self, pair=None):
         params = {
-            'method': self.private_method['order_list'],
-            'count': self.result_count,
-            'from_id': self.result_start,
-            'active': self.result_active
+            'method': self.private_method['active_order'],
         }
         if pair:
             params['pair'] = pair
