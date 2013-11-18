@@ -11,10 +11,13 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
-    SECRET_KEY = 'F\x03Dk\x1f@\xaa_5{\xf5m\xf2\x99\x9e\x1c\n\xe7{\xfb\x8aQ\xdae'
+    SECRET_KEY = ''
 
-    CACHE_TYPE = 'simple'
-    # CACHE_DIR = '/tmp/api'
+    CACHE_TYPE = 'RedisCache'
+    CACHE_REDIS_HOST = 'localhost'
+    CACHE_REDIS_PORT = 6379
+    CACHE_REDIS_DB = 2
+
     CACHE_DEFAULT_TIMEOUT = 50
     CACHE_THRESHOLD = 2048
 
@@ -22,23 +25,17 @@ class Config(object):
 
     LOG_FOLDER = './logs'
 
+    SQLALCHEMY_BINDS = {
+        'btce': 'mysql://user:password@localhost/db?charset=utf8',
+    }
+
 
 class ProductionConfig(Config):
-    SQLALCHEMY_BINDS = {
-        'btce': 'mysql://user:pass@localhost/btce?charset=utf8',
-    }
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_RECORD_QUERIES = True
 
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_ECHO = True
-    SQLALCHEMY_BINDS = {
-        'btce': 'mysql://user:pass@localhost/btce?charset=utf8',
-    }
     DEBUG = True
     SQLALCHEMY_RECORD_QUERIES = True
-
-
-class TestingConfig(Config):
-    TESTING = True

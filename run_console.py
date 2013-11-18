@@ -8,7 +8,6 @@
 from flask.ext.script import Manager
 from console import app
 from console.view.test import TestCommand
-
 manager = Manager(app)
 
 manager.add_command('test', TestCommand())

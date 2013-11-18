@@ -12,26 +12,41 @@ from flask.ext.script import Command
 
 from console.configs.btce import BtceConfig
 
+from models.trades import Trades
+from web import db
+
 
 class TestCommand(Command):
 
     def run(self):
+
         config = BtceConfig
         btce = BtceApi(config)
+        pairs = BtceConfig.PAIR
+        min_orders = BtceConfig.MIN_ORDERS
 
         btce.active = 1
 
-        for i in xrange(10):
-            t1 = time.time()
-            btce.nonce = btce.nonce + 1
-            print btce.get_active_order()
-            # if btce.get_order_list():
-            #     print time.time() - t1
+        trades = btce.get_trades()
 
+        for key in pairs:
+            for row in trades[key]:
+                if row['amount'] < min_orders[key]:
+                    continue
 
+                trade = Trades.query.get(row['tid'])
+                if trade:
+                    continue
 
+                trade = Trades()
+                trade.id = row['tid']
+                trade.date = row['timestamp']
+                trade.type = Trades.TYPE_BID if 'bid' in row[
+                    'type'] else Trades.TYPE_ASK
+                trade.price = row['price']
+                trade.amount = row['amount']
+                trade.pair = pairs[key]
 
-        # trades = btce.get_trades()
-        # for pair in config.PAIR:
-        #     for row in trades[pair]:
-        #         print row['price_currency']
+                db.session.add(trade)
+
+        db.session.commit()

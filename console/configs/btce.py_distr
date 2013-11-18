@@ -14,7 +14,7 @@ class BtceConfig(object):
     PUBLIC_URL = 'https://btc-e.com/api/2'
     PRIVATE_URL = 'https://btc-e.com/tapi'
 
-     PUBLIC_METHOD = dict(
+    PUBLIC_METHOD = dict(
         info='fee',
         ticker='ticker',
         trades='trades',
@@ -25,7 +25,7 @@ class BtceConfig(object):
         user_info='getInfo',
         trans_history='TransHistory',
         trade_history='TradeHistory',
-        order_list='ActiveOrders',
+        active_order='ActiveOrders',
         trade='Trade',
         cancel_order='CancelOrder'
     )
